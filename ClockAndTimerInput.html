@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Digital Clock with Timer </title>
+	<style>
+		body {
+    		background: black;
+		}
+		.clock {
+    		position: absolute;
+    		top: 50%;
+    		left: 50%;
+    		transform: translateX(-50%) translateY(-50%);
+    		color: #17D4FE;
+    		font-size: 60px;
+    		font-family: Orbitron;
+    		letter-spacing: 7px;
+		}
+		.clock_input {
+    		position: absolute;
+    		top: 20%;
+    		left: 10%;
+    		transform: translateX(-50%) translateY(-50%);
+    		color: #17D4FE;
+    		font-size: 30px;
+    		font-family: Orbitron;
+    		letter-spacing: 7px;
+		}
+	</style>
+</head>
+<body>
+	<div id="MyClockDisplay" class="clock" onload="showTime()">
+	</div>
+	<div>
+    	<input type="time" id="myInput" class="clock_input">
+	</div>
+	<script>
+		document.getElementById("myInput").value="00:00:00";
+		function showTime(){
+    		var date=new Date();
+    		var h=date.getHours();
+    		var m=date.getMinutes();
+    		var s=date.getSeconds();
+    		var session="AM";
+    		var temp=h+":"+m+":"+s;
+    		if(h == 0){
+        		h=12;
+    		}
+    		if(h > 12){
+        		h=h-12;
+        		session="PM";
+    		}
+    		h=(h < 10) ? "0" + h : h;
+    		m=(m < 10) ? "0" + m : m;
+    		s=(s < 10) ? "0" + s : s;
+    		var time=h + ":" + m + ":" + s + " " + session;
+    		var x=document.getElementById("myInput");
+    		var timeSplit=x.value.split(':'), hours, minutes;
+    		hours=timeSplit[0];
+    		minutes=timeSplit[1];
+    		itime=hours + ":" + minutes + ":00 ";
+    		if(Date.parse('01/01/2011 '+time) > Date.parse('01/01/2011 '+itime)) {
+        		document.getElementById("MyClockDisplay").style.backgroundColor = "red";
+    		} else {
+    			document.getElementById("MyClockDisplay").style.backgroundColor = "black";
+    		}
+    		document.getElementById("MyClockDisplay").innerText = time;
+    		document.getElementById("MyClockDisplay").textContent = time;
+    		setTimeout(showTime, 1000);
+		}
+		showTime();
+	</script>
+</body>
+</html>
